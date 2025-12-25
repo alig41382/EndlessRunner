@@ -38,8 +38,9 @@ public class ObstacleSpawner : MonoBehaviour
 
         Vector3 spawnPos = new Vector3(xPos, 0.5f, nextSpawnZ);
 
-        Instantiate(obstaclePrefab, spawnPos, Quaternion.identity);
-
+        GameObject obstacle = Instantiate(obstaclePrefab, spawnPos, Quaternion.identity);
+        DestroyBehindPlayer destroyScript  = obstacle.GetComponent<DestroyBehindPlayer>();
+        destroyScript.player = player;
         // Increase Z for next spawn
         nextSpawnZ += Random.Range(minDistance, maxDistance);
     }
