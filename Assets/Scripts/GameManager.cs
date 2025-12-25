@@ -1,5 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+
 
 public class GameManager : MonoBehaviour
 {
@@ -17,6 +19,9 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     GameObject gameOverPanel;
 
+    [SerializeField]
+    Button restartButton;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
@@ -26,6 +31,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         gameOverPanel.SetActive(false);
+        restartButton.onClick.AddListener(Restart);
     }
 
     // Update is called once per frame
