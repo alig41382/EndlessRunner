@@ -38,6 +38,13 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     Button restartButton;
 
+    [Header("Audio")]
+    [SerializeField]
+    AudioSource backgroundMusic;
+
+    [SerializeField]
+    AudioSource gameOverSound;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
@@ -46,6 +53,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        backgroundMusic.Play();
         gameOverPanel.SetActive(false);
         restartButton.onClick.AddListener(Restart);
 
@@ -76,10 +84,13 @@ public class GameManager : MonoBehaviour
     {
         if (isGameOver)
             return;
+        backgroundMusic.Stop();
         isGameOver = true;
         playerController.enabled = false;
         spawner.enabled = false;
         Time.timeScale = 0f;
+
+        gameOverSound.Play();
         StartCoroutine(ShowGameOverPanel());
     }
 

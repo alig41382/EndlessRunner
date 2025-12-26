@@ -22,7 +22,7 @@ public class TrackManager : MonoBehaviour
     void Update()
     {
         // Move the next tile when player passes its FRONT edge
-        if (player.position.z + 10f > tiles[currentLineIndex].position.z + halfTileLength)
+        if (player.position.z > tiles[currentLineIndex].position.z + halfTileLength + 10f)
         {
             MoveTileToFront();
         }
