@@ -58,7 +58,7 @@ public class GameManager : MonoBehaviour
         restartButton.onClick.AddListener(Restart);
 
         bestScore = PlayerPrefs.GetInt("BestScore", 0);
-        bestScoreText.text = "Best Score: " + bestScore;
+        bestScoreText.text = "Best: " + bestScore;
         scoreText.text = "Score: 0";
     }
 

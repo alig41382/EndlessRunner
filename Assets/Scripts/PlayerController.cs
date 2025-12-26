@@ -30,6 +30,8 @@ public class PlayerController : MonoBehaviour
     private Rigidbody rb;
     private CapsuleCollider col;
 
+    [SerializeField] private Animator animator;
+
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -78,6 +80,7 @@ public class PlayerController : MonoBehaviour
             v.y = 0f;
             rb.linearVelocity = v;
 
+            animator.SetTrigger("Jump");
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         }
     }
