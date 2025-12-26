@@ -1,13 +1,14 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using System.Collections;
 
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
-    public bool isGameOver = false;
+    private bool isGameOver = false;
 
     [Header("References")]
     [SerializeField]
@@ -44,8 +45,14 @@ public class GameManager : MonoBehaviour
         isGameOver = true;
         playerController.enabled = false;
         spawner.enabled = false;
-        gameOverPanel.SetActive(true);
         Time.timeScale = 0f;
+        StartCoroutine(ShowGameOverPanel());
+    }
+
+    private IEnumerator ShowGameOverPanel()
+    {
+        yield return new WaitForSecondsRealtime(1f);
+        gameOverPanel.SetActive(true);
     }
 
     public void Restart()
