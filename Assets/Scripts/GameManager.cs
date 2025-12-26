@@ -1,14 +1,29 @@
+using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using System.Collections;
-
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
     private bool isGameOver = false;
+
+    [Header("UI")]
+    [SerializeField]
+    TextMeshProUGUI scoreText;
+
+    [SerializeField]
+    TextMeshProUGUI bestScoreText;
+
+    [Header("Score")]
+    [SerializeField]
+    Transform player;
+
+    [SerializeField]
+    float scoreMultiplier = 1f;
+    private int bestScore;
 
     [Header("References")]
     [SerializeField]
@@ -33,10 +48,29 @@ public class GameManager : MonoBehaviour
     {
         gameOverPanel.SetActive(false);
         restartButton.onClick.AddListener(Restart);
+
+        bestScore = PlayerPrefs.GetInt("BestScore", 0);
+        bestScoreText.text = "Best Score: " + bestScore;
+        scoreText.text = "Score: 0";
     }
 
     // Update is called once per frame
-    void Update() { }
+    void Update()
+    {
+        if (isGameOver)
+            return;
+
+        int score = Mathf.FloorToInt(player.position.z * scoreMultiplier);
+        scoreText.text = $"Score: {score}";
+
+        if (score > bestScore)
+        {
+            bestScore = score;
+            PlayerPrefs.SetInt("BestScore", bestScore);
+            PlayerPrefs.Save();
+            bestScoreText.text = $"Best: {bestScore}";
+        }
+    }
 
     public void GameOver()
     {
